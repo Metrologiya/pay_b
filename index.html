@@ -162,30 +162,34 @@
           return;
         }
 
-        let data = {
-          fullname: fullname.value,
-          address: address.value,
-          phone: phone.value,
-          type: type_select.value,
-          model: model.value,
-          serial: serial.value,
-          year: year.value,
-          reading: reading.value,
-        };
+        if (model.value === "other") {
+    model.value = other_model.value;
+  }
 
-        tg.sendData(JSON.stringify(data));
-        tg.close();
-      });
+  let data = {
+    fullname: fullname.value,
+    address: address.value,
+    phone: phone.value,
+    type: type_select.value,
+    model: model.value,
+    serial: serial.value,
+    year: year.value,
+    reading: reading.value,
+  };
 
-      reset.addEventListener("click", () => {
-        tg.close();
-      });
+  tg.sendData(JSON.stringify(data));
+  tg.close();
+});
 
-      other_model_input.addEventListener("input", function() {
-        if (model_select.value === "other") {
-          model_select.value = other_model_input.value;
-        }
-      });
+reset.addEventListener("click", () => {
+  tg.close();
+});
+
+other_model_input.addEventListener("input", function() {
+  if (model_select.value === "other") {
+    model_select.value = other_model_input.value;
+  }
+});
   </script>
   </body>
 </html>
