@@ -62,7 +62,7 @@
     </form>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script>
+   <script>
       let tg = window.Telegram.WebApp;
       let submit = document.getElementById("submit");
       let reset = document.getElementById("reset");
@@ -84,12 +84,6 @@
           other_model_input.style.display = "block";
         } else {
           other_model_input.style.display = "none";
-        }
-      });
-
-      other_model_input.addEventListener("input", function() {
-        if (model_select.value === "other") {
-          data['model'] = other_model_input.value;
         }
       });
 
@@ -185,6 +179,12 @@
 
       reset.addEventListener("click", () => {
         tg.close();
+      });
+
+      other_model_input.addEventListener("input", function() {
+        if (model_select.value === "other") {
+          model_select.value = other_model_input.value;
+        }
       });
 </script>
   </body>
