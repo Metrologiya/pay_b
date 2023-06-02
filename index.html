@@ -102,7 +102,7 @@
 
   // Если выбрана другая модель, сохраняем значение other_model_input
   if (model.value === "other" && other_model.value.trim() !== "") {
-    model.value = other_model.value;
+    model.value = "Другая: " + other_model.value;
   }
 
   error.innerText = "";
