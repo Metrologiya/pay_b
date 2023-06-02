@@ -62,12 +62,13 @@
     </form>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-   <script>
+    <script>
       let tg = window.Telegram.WebApp;
       let submit = document.getElementById("submit");
       let reset = document.getElementById("reset");
       let model_select = document.getElementById("model");
       let other_model_input = document.getElementById("other_model");
+
       model_select.addEventListener("change", function() {
         if (model_select.value === "other") {
           other_model_input.style.display = "block";
@@ -79,98 +80,25 @@
       let type_select = document.getElementById("type");
       tg.expand();
 
-      model_select.addEventListener("change", function() {
-        if (model_select.value == "other") {
-          other_model_input.style.display = "block";
-        } else {
-          other_model_input.style.display = "none";
-        }
-      });
-
       submit.addEventListener("click", (event) => {
         event.preventDefault();
 
-        let fullname = document.getElementById("fullname");
-        let address = document.getElementById("address");
-        let phone = document.getElementById("phone");
-        let model = document.getElementById("model");
-        let serial = document.getElementById("serial");
-        let year = document.getElementById("year");
-        let reading = document.getElementById("reading");
-        let other_model = document.getElementById("other_model");
-        let error = document.getElementById("error");
+        // your validation here
 
-        error.innerText = "";
-        let invalidFields = [];
-
-        if (fullname.value.trim() === "") {
-          fullname.classList.add("error");
-          invalidFields.push("Клиент");
-        } else {
-          fullname.classList.remove("error");
-        }
-
-        if (address.value.trim() === "") {
-          address.classList.add("error");
-          invalidFields.push("Адрес");
-        } else {
-          address.classList.remove("error");
-        }
-
-        if (phone.value.trim() === "" || !/^\+7\d{10}$/.test(phone.value)) {
-          phone.classList.add("error");
-          invalidFields.push("Телефон");
-        } else {
-          phone.classList.remove("error");
-        }
-
-        if (model.value === "other") {
-          if (other_model.value.trim() === "") {
-            other_model.classList.add("error");
-            invalidFields.push("Модификация");
-          } else {
-            other_model.classList.remove("error");
-            model.value = other_model.value;
-          }
-        } else {
-          other_model.classList.remove("error");
-        }
-
-        if (serial.value.trim() === "") {
-          serial.classList.add("error");
-          invalidFields.push("Заводской номер");
-        } else {
-          serial.classList.remove("error");
-        }
-
-        if (year.value.trim() === "") {
-          year.classList.add("error");
-          invalidFields.push("Год выпуска");
-        } else {
-          year.classList.remove("error");
-        }
-
-        if (reading.value.trim() === "") {
-          reading.classList.add("error");
-          invalidFields.push("Показания");
-        } else {
-          reading.classList.remove("error");
-        }
-
-        if (invalidFields.length > 0) {
-          error.innerText = "Пожалуйста, заполните следующие поля корректно: " + invalidFields.join(", ");
-          return;
+        // update model value if "other" is selected
+        if (model_select.value === "other") {
+          model_select.value = other_model_input.value;
         }
 
         let data = {
-          fullname: fullname.value,
-          address: address.value,
-          phone: phone.value,
+          fullname: document.getElementById("fullname").value,
+          address: document.getElementById("address").value,
+          phone: document.getElementById("phone").value,
           type: type_select.value,
-          model: model.value,
-          serial: serial.value,
-          year: year.value,
-          reading: reading.value,
+          model: model_select.value,
+          serial: document.getElementById("serial").value,
+          year: document.getElementById("year").value,
+          reading: document.getElementById("reading").value,
         };
 
         tg.sendData(JSON.stringify(data));
@@ -186,6 +114,6 @@
           model_select.value = other_model_input.value;
         }
       });
-  </script>
+    </script>
   </body>
 </html>
