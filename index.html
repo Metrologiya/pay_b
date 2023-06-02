@@ -88,20 +88,25 @@
       });
 
       submit.addEventListener("click", (event) => {
-        event.preventDefault();
+  event.preventDefault();
 
-        let fullname = document.getElementById("fullname");
-        let address = document.getElementById("address");
-        let phone = document.getElementById("phone");
-        let model = document.getElementById("model");
-        let serial = document.getElementById("serial");
-        let year = document.getElementById("year");
-        let reading = document.getElementById("reading");
-        let other_model = document.getElementById("other_model");
-        let error = document.getElementById("error");
+  let fullname = document.getElementById("fullname");
+  let address = document.getElementById("address");
+  let phone = document.getElementById("phone");
+  let model = document.getElementById("model");
+  let serial = document.getElementById("serial");
+  let year = document.getElementById("year");
+  let reading = document.getElementById("reading");
+  let other_model = document.getElementById("other_model");
+  let error = document.getElementById("error");
 
-        error.innerText = "";
-        let invalidFields = [];
+  // Если выбрана другая модель, сохраняем значение other_model_input
+  if (model.value === "other" && other_model.value.trim() !== "") {
+    model.value = other_model.value;
+  }
+
+  error.innerText = "";
+  let invalidFields = [];
 
         if (fullname.value.trim() === "") {
           fullname.classList.add("error");
