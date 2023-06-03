@@ -62,7 +62,7 @@
     </form>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-   <script>
+    <script>
       let tg = window.Telegram.WebApp;
       let submit = document.getElementById("submit");
       let reset = document.getElementById("reset");
@@ -80,6 +80,12 @@
       let type_select = document.getElementById("type");
       tg.expand();
 
+      let other_model_value = "";  // Добавьте новую переменную для хранения пользовательского ввода
+
+      other_model_input.addEventListener("input", function() {
+        other_model_value = other_model_input.value;  // Сохраните ввод пользователя в новую переменную
+      });
+
       submit.addEventListener("click", (event) => {
         event.preventDefault();
 
@@ -93,10 +99,9 @@
         let other_model = document.getElementById("other_model");
         let error = document.getElementById("error");
 
-        // Если выбрана другая модель, сохраняем значение other_model_input
         let model_value = model.value;
-        if (model_value === "other" && other_model.value.trim() !== "") {
-          model_value = "Другая: " + other_model.value;
+        if (model_value === "other" && other_model_value.trim() !== "") {
+          model_value = "Другая: " + other_model_value;
         }
 
         error.innerText = "";
@@ -129,7 +134,7 @@
             invalidFields.push("Модификация");
           } else {
             other_model.classList.remove("error");
-            model.value = other_model.value;
+            model.value = other_model_value;
           }
         } else {
           other_model.classList.remove("error");
@@ -178,12 +183,6 @@
 
       reset.addEventListener("click", () => {
         tg.close();
-      });
-
-      other_model_input.addEventListener("input", function() {
-        if (model_select.value === "other") {
-          model_select.value = other_model_input.value;
-        }
       });
     </script>
   </body>
