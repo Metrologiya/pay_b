@@ -68,6 +68,7 @@
       let reset = document.getElementById("reset");
       let model_select = document.getElementById("model");
       let other_model_input = document.getElementById("other_model");
+
       model_select.addEventListener("change", function() {
         if (model_select.value === "other") {
           other_model_input.style.display = "block";
@@ -79,34 +80,27 @@
       let type_select = document.getElementById("type");
       tg.expand();
 
-      model_select.addEventListener("change", function() {
-        if (model_select.value == "other") {
-          other_model_input.style.display = "block";
-        } else {
-          other_model_input.style.display = "none";
-        }
-      });
-
       submit.addEventListener("click", (event) => {
-  event.preventDefault();
+        event.preventDefault();
 
-  let fullname = document.getElementById("fullname");
-  let address = document.getElementById("address");
-  let phone = document.getElementById("phone");
-  let model = document.getElementById("model");
-  let serial = document.getElementById("serial");
-  let year = document.getElementById("year");
-  let reading = document.getElementById("reading");
-  let other_model = document.getElementById("other_model");
-  let error = document.getElementById("error");
+        let fullname = document.getElementById("fullname");
+        let address = document.getElementById("address");
+        let phone = document.getElementById("phone");
+        let model = document.getElementById("model");
+        let serial = document.getElementById("serial");
+        let year = document.getElementById("year");
+        let reading = document.getElementById("reading");
+        let other_model = document.getElementById("other_model");
+        let error = document.getElementById("error");
 
-  // Если выбрана другая модель, сохраняем значение other_model_input
-  if (model.value === "other" && other_model.value.trim() !== "") {
-    model.value = "Другая: " + other_model.value;
-  }
+        // Если выбрана другая модель, сохраняем значение other_model_input
+        let model_value = model.value;
+        if (model_value === "other" && other_model.value.trim() !== "") {
+          model_value = "Другая: " + other_model.value;
+        }
 
-  error.innerText = "";
-  let invalidFields = [];
+        error.innerText = "";
+        let invalidFields = [];
 
         if (fullname.value.trim() === "") {
           fullname.classList.add("error");
@@ -167,34 +161,30 @@
           return;
         }
 
-        if (model.value === "other") {
-    model.value = other_model.value;
-  }
+        let data = {
+          fullname: fullname.value,
+          address: address.value,
+          phone: phone.value,
+          type: type_select.value,
+          model: model_value,
+          serial: serial.value,
+          year: year.value,
+          reading: reading.value,
+        };
 
-  let data = {
-    fullname: fullname.value,
-    address: address.value,
-    phone: phone.value,
-    type: type_select.value,
-    model: model.value,
-    serial: serial.value,
-    year: year.value,
-    reading: reading.value,
-  };
+        tg.sendData(JSON.stringify(data));
+        tg.close();
+      });
 
-  tg.sendData(JSON.stringify(data));
-  tg.close();
-});
+      reset.addEventListener("click", () => {
+        tg.close();
+      });
 
-reset.addEventListener("click", () => {
-  tg.close();
-});
-
-other_model_input.addEventListener("input", function() {
-  if (model_select.value === "other") {
-    model_select.value = other_model_input.value;
-  }
-});
-  </script>
+      other_model_input.addEventListener("input", function() {
+        if (model_select.value === "other") {
+          model_select.value = other_model_input.value;
+        }
+      });
+    </script>
   </body>
 </html>
