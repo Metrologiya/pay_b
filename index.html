@@ -80,10 +80,10 @@
       let type_select = document.getElementById("type");
       tg.expand();
 
-      let other_model_value = "";  // Добавьте новую переменную для хранения пользовательского ввода
+      let other_model_value = "";
 
       other_model_input.addEventListener("input", function() {
-        other_model_value = other_model_input.value;  // Сохраните ввод пользователя в новую переменную
+        other_model_value = other_model_input.value;
       });
 
       submit.addEventListener("click", (event) => {
@@ -101,7 +101,7 @@
 
         let model_value = model.value;
         if (model_value === "other" && other_model_value.trim() !== "") {
-            model_value = encodeURI(other_model_value);
+            model_value = encodeURIComponent(other_model_value);
         }
 
         error.innerText = "";
